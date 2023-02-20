@@ -1,0 +1,16 @@
+TH {
+  color: #ffffff;
+  background-color: #336699;
+  border-width: 1px;
+  border-style: solid;
+  border-color: red;
+  font-size: 9pt;
+}
+TD {
+  color: red;
+  background-color: #e6e6fa;
+  border-width: 1px;
+  border-style: solid;
+  border-color: blue;
+  font-size: 9pt;
+}
