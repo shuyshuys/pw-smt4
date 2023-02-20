@@ -1,4 +1,4 @@
-TH {
+th {
   color: #ffffff;
   background-color: #336699;
   border-width: 1px;
@@ -6,7 +6,7 @@ TH {
   border-color: red;
   font-size: 9pt;
 }
-TD {
+td {
   color: red;
   background-color: #e6e6fa;
   border-width: 1px;
