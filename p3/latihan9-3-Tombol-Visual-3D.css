@@ -1,0 +1,45 @@
+/* CSS Document */
+.leftlinks {
+  border: 1px solid #22476c;
+  padding: 5px;
+  margin: 5px;
+  text-align: middle;
+  background-color: #336699;
+  width: 150px;
+}
+
+.leftlinks a {
+  display: block;
+  margin: 3px 0px;
+  border-top: 1px solid #4c86c0;
+  border-left: 1px solid #4c86c0;
+  border-right: 1px solid #22476c;
+  border-top: 1px solid #22476c;
+  padding: 4px 10px;
+  text-align: center;
+  background-color: #336699;
+  color: #ededed;
+  text-decoration: none;
+}
+
+.leftlinks a:link {
+  color: #ededed;
+}
+
+.leftlinks a:visited {
+  columns: 3EDEDED;
+}
+
+.leftlinks a:hover {
+  display: block;
+  margin: 3px 0px;
+  border-top: 1px solid #22476c;
+  border-left: 1px solid #22476c;
+  border-right: 1px solid #4c86c0;
+  border-top: 1px solid #4c86c0;
+  padding: 5px 9px 3px 11px;
+  text-align: center;
+  background-color: #336699;
+  color: #eed929;
+  text-decoration: none;
+}
