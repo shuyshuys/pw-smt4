@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kontak Saya</title>
+    <link rel="stylesheet" href="./style.css" text="text/css" />
+    <style text="text/css">
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      h1 {
+        font-size: 36px;
+        margin: 0;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+      }
+      nav a {
+        display: block;
+        padding: 10px;
+        margin-left: 10px;
+        text-decoration: none;
+        color: #333;
+        border-radius: 3px;
+        transition: background-color 0.3s ease-in-out;
+      }
+      nav a:hover {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body class="container">
+    <header-component></header-component>
+    <section id="kontak">
+      <h2>Kontak Saya</h2>
+      <div class="contact-info">
+        <div class="info">
+          <i class="fas fa-envelope"></i>
+          <p>ahmad.yazid.upnjatim@gmail.com</p>
+        </div>
+        <div class="info">
+          <i class="fas fa-phone"></i>
+          <p>+62 895-1017-1698</p>
+        </div>
+        <div class="info">
+          <i class="fas fa-map-marker-alt"></i>
+          <p>Surabaya, Indonesia</p>
+        </div>
+      </div>
+      <form class="contact-form" action="#" method="post">
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name" required />
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+        <label for="subject">Subjek:</label>
+        <input type="text" id="subject" name="subject" required />
+        <label for="message">Pesan:</label>
+        <textarea id="message" name="message" required></textarea>
+        <input type="submit" value="Kirim" />
+      </form>
+    </section>
+  </body>
+  <script src="./components.js"></script>
+</html>
