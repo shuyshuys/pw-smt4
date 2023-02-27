@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Contoh Program Javascript</title>
+  </head>
+  <script language="Javascript">
+    function test() {
+      val1 = window.prompt("Input Nilai (1-5) :");
+      switch (val1) {
+        case "1":
+          document.write("Bilangan 1");
+          break;
+        case "2":
+          document.write("Bilangan 2");
+          break;
+        case "3":
+          document.write("Bilangan 3");
+          break;
+        case "4":
+          document.write("Bilangan 4");
+          break;
+        case "5":
+          document.write("Bilangan 5");
+          break;
+        default:
+          document.write("Bilangan lainnya");
+          break;
+      }
+    }
+  </script>
+  <body>
+    <input type="button" name="button1" value="switch" onclick="test()" />
+  </body>
+</html>
