@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Konversi Nilai Angka ke Nilai Huruf</title>
+    <script>
+      function konversiNilai() {
+        var nilai = document.getElementById("nilai").value;
+        var nilaiHuruf;
+
+        if (nilai >= 0 && nilai < 41) {
+          nilaiHuruf = "E";
+        } else if (nilai >= 41 && nilai < 56) {
+          nilaiHuruf = "D";
+        } else if (nilai >= 56 && nilai < 61) {
+          nilaiHuruf = "C";
+        } else if (nilai >= 61 && nilai < 66) {
+          nilaiHuruf = "BC";
+        } else if (nilai >= 66 && nilai < 71) {
+          nilaiHuruf = "B";
+        } else if (nilai >= 71 && nilai < 81) {
+          nilaiHuruf = "AB";
+        } else if (nilai >= 81 && nilai <= 100) {
+          nilaiHuruf = "A";
+        } else {
+          nilaiHuruf = "Nilai tidak valid!";
+        }
+
+        document.getElementById("hasil").innerHTML =
+          "Nilai huruf Anda adalah: " + nilaiHuruf;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Konversi Nilai Angka ke Nilai Huruf</h1>
+    <label for="nilai">Masukkan nilai Anda:</label>
+    <input type="number" id="nilai" name="nilai" />
+    <button onclick="konversiNilai()">Konversi</button>
+    <br />
+    <p id="hasil"></p>
+  </body>
+</html>
