@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kalkulator Sederhana</title>
+    <style>
+      body {
+        font-family: "Open Sans", sans-serif;
+        background-color: #f1f2f6;
+      }
+
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 30px;
+        color: #a4b0be;
+      }
+
+      label {
+        display: inline-block;
+        margin-bottom: 5px;
+        color: #57606f;
+      }
+
+      input[type="number"],
+      input[type="radio"],
+      button {
+        font-size: 16px;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        color: #57606f;
+        background-color: #dfe4ea;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      input[type="number"] {
+        width: 100%;
+      }
+
+      input[type="radio"] + label {
+        margin-right: 10px;
+      }
+
+      input[type="radio"]:checked + label {
+        background-color: #a4b0be;
+        color: #ffffff;
+      }
+
+      button {
+        width: 100%;
+        background-color: #2f3542;
+        color: #ffffff;
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #57606f;
+      }
+
+      input[type="number"]:focus,
+      input[type="radio"]:focus,
+      button:focus {
+        outline: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    </style>
+    <script>
+      function hitung() {
+        var bil1 = parseFloat(document.getElementById("bil1").value);
+        var bil2 = parseFloat(document.getElementById("bil2").value);
+        var operator = document.querySelector(
+          'input[name="operator"]:checked'
+        ).value;
+        var hasil;
+
+        if (operator == "+") {
+          hasil = bil1 + bil2;
+        } else if (operator == "-") {
+          hasil = bil1 - bil2;
+        } else if (operator == "x") {
+          hasil = bil1 * bil2;
+        } else if (operator == "/") {
+          hasil = bil1 / bil2;
+        } else {
+          hasil = "Operasi tidak valid!";
+        }
+
+        document.getElementById("hasil").value = hasil;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Kalkulator Sederhana</h1>
+    <label for="bil1">Bilangan 1:</label>
+    <input type="number" id="bil1" name="bil1" /><br /><br />
+    <label for="bil2">Bilangan 2:</label>
+    <input type="number" id="bil2" name="bil2" /><br /><br />
+    <label>Pilih Operator:</label><br />
+    <input type="radio" id="tambah" name="operator" value="+" />
+    <label for="tambah">+</label>
+    <input type="radio" id="kurang" name="operator" value="-" />
+    <label for="kurang">-</label>
+    <input type="radio" id="kali" name="operator" value="x" />
+    <label for="kali">×</label>
+    <input type="radio" id="bagi" name="operator" value="/" />
+    <label for="bagi">/</label>
+    <br /><br />
+    <button onclick="hitung()">Hitung</button><br /><br />
+    <label for="hasil">Hasil:</label>
+    <input type="number" id="hasil" name="hasil" readonly />
+  </body>
+</html>
