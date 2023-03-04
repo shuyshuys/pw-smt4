@@ -96,6 +96,8 @@
           hasil = bil1 * bil2;
         } else if (operator == "/") {
           hasil = bil1 / bil2;
+        } else if (operator == "%") {
+          hasil = bil1 % bil2;
         } else {
           hasil = "Operasi tidak valid!";
         }
@@ -111,17 +113,49 @@
     <label for="bil2">Bilangan 2:</label>
     <input type="number" id="bil2" name="bil2" /><br /><br />
     <label>Pilih Operator:</label><br />
-    <input type="radio" id="tambah" name="operator" value="+" />
+    <input
+      type="radio"
+      id="tambah"
+      name="operator"
+      value="+"
+      onclick="hitung()"
+    />
     <label for="tambah">+</label>
-    <input type="radio" id="kurang" name="operator" value="-" />
+    <input
+      type="radio"
+      id="kurang"
+      name="operator"
+      value="-"
+      onclick="hitung()"
+    />
     <label for="kurang">-</label>
-    <input type="radio" id="kali" name="operator" value="x" />
-    <label for="kali">×</label>
-    <input type="radio" id="bagi" name="operator" value="/" />
+    <input
+      type="radio"
+      id="kali"
+      name="operator"
+      value="x"
+      onclick="hitung()"
+    />
+    <label for="kali">x</label>
+    <input
+      type="radio"
+      id="bagi"
+      name="operator"
+      value="/"
+      onclick="hitung()"
+    />
     <label for="bagi">/</label>
+    <input
+      type="radio"
+      id="bagi"
+      name="operator"
+      value="%"
+      onclick="hitung()"
+    />
+    <label for="modulus">%</label>
     <br /><br />
-    <button onclick="hitung()">Hitung</button><br /><br />
-    <label for="hasil">Hasil:</label>
+    <!-- <button onclick="hitung()">Hitung</button><br /><br /> -->
+    <label for="hasil">HASIL:</label>
     <input type="number" id="hasil" name="hasil" readonly />
   </body>
 </html>
