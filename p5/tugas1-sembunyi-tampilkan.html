@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>Sembunyi dan Tampilkan Gambar</title>
+    <script src="js/jquery-3.6.3.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        //menunggu halaman selesai loading
+        $(".sembunyi").click(function () {
+          //saat button yang diberi class sembunyi di klik
+          $(this).parent().parent().find("#foto").hide("slow"); //maka tag img yang diberi id foto akan disembunyikan secara perlahan
+        });
+        $(".tampil").click(function () {
+          //saat button yang diberi class tampil
+          $(this).parent().parent().find("#foto").show("slow"); //maka tag img yang diberi id foto akan ditampilkan secara perlahan
+        });
+      });
+    </script>
+    <link rel="stylesheet" href="../default.css" />
+    <style type="text/css">
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 25px 0;
+      }
+    </style>
+  </head>
+  <body class="container-medium">
+    <div class="container">
+      <button class="sembunyi">Sembunyikan</button>
+      <img
+        id="foto"
+        src="https://picsum.photos/200"
+        width="auto"
+        height="240"
+      />
+      <!-- tag img yang diberi id foto, foto diambil random dari internet-->
+      <button class="tampil">Tampilkan</button>
+    </div>
+    <div class="container">
+      <button class="sembunyi">Sembunyikan</button>
+      <img
+        id="foto"
+        src="https://picsum.photos/201  "
+        width="auto"
+        height="240"
+      /><!-- tag img yang diberi id foto, foto diambil random dari internet-->
+      <button class="tampil">Tampilkan</button>
+    </div>
+    <div class="container">
+      <button class="sembunyi">Sembunyikan</button>
+      <img
+        id="foto"
+        src="https://picsum.photos/202"
+        width="auto"
+        height="240"
+      />
+      <!-- tag img yang diberi id foto, foto diambil random dari internet-->
+      <button class="tampil">Tampilkan</button>
+    </div>
+  </body>
+</html>
