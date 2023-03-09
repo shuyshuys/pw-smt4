@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Event Double Click</title>
+    <style>
+      h1 {
+        font-family: "Fira Code", monospace;
+        font-size: 2rem;
+        font-weight: 500;
+        color: #333;
+        text-align: center;
+      }
+
+      body {
+        background-color: #f2f2f2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .container-blok {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-gap: 10px;
+      }
+
+      .blok {
+        width: 100px;
+        height: 100px;
+        border-radius: 15px;
+        background-color: #fff;
+        margin: 25px;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+      }
+
+      .blok:hover {
+        transform: rotate(180deg);
+      }
+    </style>
+    <script src="./js/jquery-3.6.3.min.js"></script>
+    <script>
+      function getRandomColor() {
+        //fungsi untuk membuat warna random dari hexadesimal
+        var letters = "0123456789ABCDEF";
+        var color = "#";
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color; //mengembalikan nilai warna random
+      }
+      $(document).ready(function () {
+        // menunggu halaman selesai di-load
+        $(".blok").dblclick(function () {
+          // ketika tombol hide di dobel klik
+          $(this).css("background-color", getRandomColor());
+          // mengubah warna background menjadi warna random dengan memanggil fungsi getRandomColor()
+        });
+      });
+    </script>
+    <link rel="stylesheet" href="../default.css" />
+  </head>
+  <body class="container-medium">
+    <h1>
+      Klik 2 kali <br />
+      untuk mengubah warna
+    </h1>
+    <div class="container-blok">
+      <div class="blok" style="background-color: red"></div>
+      <div class="blok" style="background-color: green"></div>
+      <div class="blok" style="background-color: blue"></div>
+      <div class="blok" style="background-color: purple"></div>
+    </div>
+  </body>
+</html>
