@@ -145,21 +145,27 @@ Placed at the end of the document so the pages load faster
     <script src="js/popper.min.js"></script>
     <script>
       (function () {
-        "use strict";
+        // Membuat self-invoking anonymous function
+        "use strict"; // Menggunakan "use strict" untuk mencegah penggunaan variabel yang tidak dideklarasikan secara eksplisit
         window.addEventListener(
+          // Menambahkan event listener "load" pada window ketika halaman selesai diload
           "load",
           function () {
-            var forms = document.getElementsByClassName("needs-validation");
+            var forms = document.getElementsByClassName("needs-validation"); // Mencari semua elemen dengan kelas "needs-validation" pada halaman
             var validation = Array.prototype.filter.call(
+              // Memfilter elemen dengan kelas "needs-validation" menggunakan Array.prototype.filter()
+              // dan menambahkan listener pada setiap elemen tersebut untuk menangani event "submit" pada form
               forms,
               function (form) {
                 form.addEventListener(
+                  // Jika form tidak valid, maka event akan dihentikan dengan preventDefault() dan stopPropagation()
                   "submit",
                   function (event) {
                     if (form.checkValidity() === false) {
                       event.preventDefault();
                       event.stopPropagation();
                     }
+                    // Jika form valid, maka class "was-validated" akan ditambahkan pada form tersebut
                     form.classList.add("was-validated");
                   },
                   false
