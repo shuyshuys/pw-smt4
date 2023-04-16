@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-    <title>POST</title>
+    <title>REQUEST</title>
 </head>
 
 <body>
-    <form action="requestAct.php" method="REQUEST   ">
+    <form action="requestAct.php" method="REQUEST">
         <table width="400" align="center" cellpadding="2" cellspacing="2">
             <tr>
                 <td width="130">Nama</td>
