@@ -6,10 +6,10 @@
 
 <body>
     <?php
-    $servername = "sql308.epizy.com";
-    $username = "epiz_33929470";
-    $password = "Xii0ChiqoTMvRa2";
-    $dbname = "epiz_33929470_mydb";
+    $servername = "mysql.freehostia.com";
+    $username = "shuset2_shuya";
+    $password = "2WkeWFn8GaBP8pJ";
+    $dbname = "shuset2_shuya";
 
     // Create connection
     $con = mysqli_connect($servername, $username, $password, $dbname);

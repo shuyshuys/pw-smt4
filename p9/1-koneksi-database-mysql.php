@@ -8,7 +8,7 @@
 <body>
     <h1>Demo Koneksi database MySQL</h1>
     <?php
-    $con = mysqli_connect('sql308.epizy.com', 'epiz_33929470', 'Xii0ChiqoTMvRa2', 'epiz_33929470_db_sakila');
+    $con = mysqli_connect('mysql.freehostia.com', 'shuset2_shuya', '2WkeWFn8GaBP8pJ', 'shuset2_shuya');
 
     // Check connection
     if (mysqli_connect_errno()) {
