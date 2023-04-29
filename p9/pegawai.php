@@ -1,13 +1,13 @@
 <?php
 // Import string koneksi ke database
-// include('database.php');
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "pegawai";
+include('database.php');
+// $servername = "localhost";
+// $username = "root";
+// $password = "";
+// $dbname = "pegawai";
 
 // Membuat koneksi
-$con = mysqli_connect($servername, $username, $password, $dbname);
+// $con = mysqli_connect($servername, $username, $password, $dbname);
 
 // Mengecek koneksi
 if (mysqli_connect_errno()) {
@@ -73,17 +73,19 @@ if (isset($_GET['delete_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <style>
-    * {
-        scroll-behavior: smooth;
-    }
+        * {
+            scroll-behavior: smooth;
+        }
     </style>
     <title>Data Pegawai</title>
 </head>
 
 <body>
     <div class="container">
+        <a href="../index.html" class="btn btn-info mt-2">Back</a>
+        <h1 class="mt-2">Form Pegawai</h1>
         <!-- Form tambah data -->
-        <div class="row mt-3">
+        <div class="row mt-2">
             <?php
             $query_jabatan = "SELECT * FROM jabatan";
             $result_jabatan = mysqli_query($con, $query_jabatan);
@@ -105,9 +107,8 @@ if (isset($_GET['delete_id'])) {
                             <select class="form-control" id="jabatan_buat" name="jabatan_buat">
                                 <option value="">- Pilih Jabatan -</option>
                                 <?php while ($row_jabatan = mysqli_fetch_assoc($result_jabatan)) { ?>
-                                <option value="<?php echo $row_jabatan['id_jabatan']; ?>" name="jabatan_buat"
-                                    id="jabatan_buat">
-                                    <?php echo $row_jabatan['nama_jabatan']; ?></option>
+                                    <option value="<?php echo $row_jabatan['id_jabatan']; ?>" name="jabatan_buat" id="jabatan_buat">
+                                        <?php echo $row_jabatan['nama_jabatan']; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -117,7 +118,7 @@ if (isset($_GET['delete_id'])) {
                             <input class="form-control" id="gaji_buat" name="gaji_buat" readonly value=""></input>
                         </div>
                         <!-- Tombol submit -->
-                        <button type="submit" class="btn btn-primary mb-2" name="submit">Tambah</button>
+                        <button type="submit" class="btn btn-primary mb-3" name="submit">Tambah</button>
                     </form>
                 </div>
             </div>
@@ -148,9 +149,8 @@ if (isset($_GET['delete_id'])) {
                             <select class="form-control" id="jabatan_ubah" name="jabatan_ubah">
                                 <option value="">- Pilih Jabatan -</option>
                                 <?php while ($row_jabatan = mysqli_fetch_assoc($result_jabatan)) { ?>
-                                <option value="<?php echo $row_jabatan['id_jabatan']; ?>" name="jabatan_ubah"
-                                    id="jabatan_ubah">
-                                    <?php echo $row_jabatan['nama_jabatan']; ?></option>
+                                    <option value="<?php echo $row_jabatan['id_jabatan']; ?>" name="jabatan_ubah" id="jabatan_ubah">
+                                        <?php echo $row_jabatan['nama_jabatan']; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -159,7 +159,7 @@ if (isset($_GET['delete_id'])) {
                             <label for="isi">Gaji</label>
                             <input class="form-control" id="gaji_ubah" name="gaji" readonly value=""></input>
                         </div>
-                        <button type="submit" class="btn btn-primary mb-2" name="change">Ubah</button>
+                        <button type="submit" class="btn btn-primary mb-3" name="change">Ubah</button>
                     </form>
                 </div>
             </div>
@@ -227,67 +227,67 @@ if (isset($_GET['delete_id'])) {
         <script src="js/popper.min.js"></script>
         <script src="js/bootstrap.js"></script>
         <script>
-        // Script untuk menampilkan data pegawai ke dalam modal
-        $('#myModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget)
-            var id_bt = button.data('id')
-            var nama_bt = button.data('nama')
-            var jabatan = button.data('jabatan')
-            var gaji = button.data('gaji')
-            var modal = $(this)
-            modal.find('#modal-id').text(id_bt)
-            modal.find('#modal-nama').text(nama_bt)
-            modal.find('#modal-jabatan').text(jabatan)
-            modal.find('#modal-gaji').text(gaji)
-        })
+            // Script untuk menampilkan data pegawai ke dalam modal
+            $('#myModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget)
+                var id_bt = button.data('id')
+                var nama_bt = button.data('nama')
+                var jabatan = button.data('jabatan')
+                var gaji = button.data('gaji')
+                var modal = $(this)
+                modal.find('#modal-id').text(id_bt)
+                modal.find('#modal-nama').text(nama_bt)
+                modal.find('#modal-jabatan').text(jabatan)
+                modal.find('#modal-gaji').text(gaji)
+            })
 
-        // Script untuk mengisi form edit pegawai 
-        function fillForm(id, jabatan) {
-            console.log(id);
-            document.getElementById("id_ubah").value = id;
-            var dropdown = document.getElementById("jabatan_ubah");
-            dropdown.value = jabatan;
-            var event = new Event('change');
-            dropdown.dispatchEvent(event);
-            document.getElementById("nama_ubah").focus();
-            window.scrollTo(0, 0);
-        }
+            // Script untuk mengisi form edit pegawai 
+            function fillForm(id, jabatan) {
+                console.log(id);
+                document.getElementById("id_ubah").value = id;
+                var dropdown = document.getElementById("jabatan_ubah");
+                dropdown.value = jabatan;
+                var event = new Event('change');
+                dropdown.dispatchEvent(event);
+                document.getElementById("nama_ubah").focus();
+                window.scrollTo(0, 0);
+            }
 
-        // Menambahkan event listener untuk dropdown
-        document.getElementById("jabatan_ubah").addEventListener("change", function() {
-            // Mendapatkan nilai id_jabatan yang dipilih
-            var id_jabatan = this.value;
-            // Mengirim request AJAX ke file PHP untuk mendapatkan gaji berdasarkan id_jabatan
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    // Mengisi nilai gaji dengan hasil request AJAX
-                    document.getElementById("gaji_ubah").value = this.responseText;
-                }
-            };
-            // Mengirim request AJAX
-            xmlhttp.open("GET", "get_gaji.php?id_jabatan=" + id_jabatan, true);
-            xmlhttp.send();
-        });
+            // Menambahkan event listener untuk dropdown
+            document.getElementById("jabatan_ubah").addEventListener("change", function() {
+                // Mendapatkan nilai id_jabatan yang dipilih
+                var id_jabatan = this.value;
+                // Mengirim request AJAX ke file PHP untuk mendapatkan gaji berdasarkan id_jabatan
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        // Mengisi nilai gaji dengan hasil request AJAX
+                        document.getElementById("gaji_ubah").value = this.responseText;
+                    }
+                };
+                // Mengirim request AJAX
+                xmlhttp.open("GET", "get_gaji.php?id_jabatan=" + id_jabatan, true);
+                xmlhttp.send();
+            });
 
-        // Menambahkan event listener untuk dropdown
-        document.getElementById("jabatan_buat").addEventListener("change", function() {
-            // Mendapatkan nilai id_jabatan yang dipilih
-            var id_jabatan = this.value;
-            console.log(id_jabatan);
-            // Mengirim request AJAX ke file PHP untuk mendapatkan gaji berdasarkan id_jabatan
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    // Mengisi nilai gaji dengan hasil request AJAX
-                    document.getElementById("gaji_buat").value = this.responseText;
-                }
-            };
-            // Mengirim request AJAX
-            xmlhttp.open("GET", "get_gaji.php?id_jabatan=" + id_jabatan, true);
-            xmlhttp.send();
+            // Menambahkan event listener untuk dropdown
+            document.getElementById("jabatan_buat").addEventListener("change", function() {
+                // Mendapatkan nilai id_jabatan yang dipilih
+                var id_jabatan = this.value;
+                console.log(id_jabatan);
+                // Mengirim request AJAX ke file PHP untuk mendapatkan gaji berdasarkan id_jabatan
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        // Mengisi nilai gaji dengan hasil request AJAX
+                        document.getElementById("gaji_buat").value = this.responseText;
+                    }
+                };
+                // Mengirim request AJAX
+                xmlhttp.open("GET", "get_gaji.php?id_jabatan=" + id_jabatan, true);
+                xmlhttp.send();
 
-        });
+            });
         </script>
 </body>
 

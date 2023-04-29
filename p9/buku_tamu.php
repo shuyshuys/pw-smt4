@@ -82,55 +82,8 @@ if (isset($_GET['delete_id'])) {
 
 <body>
     <div class="container">
-        <!-- Form tambah data -->
-        <div class="row mt-3">
-            <div class="col-sm-6 mx-auto">
-                <div class="card px-5">
-                    <h3 class="mb-3 mx-auto mt-3">Tambah Data Tamu</h3>
-                    <form method="POST">
-                        <div class="form-group">
-                            <label for="nama">Nama</label>
-                            <input type="text" class="form-control" id="nama" name="nama" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="isi">Isi</label>
-                            <textarea class="form-control" id="isi" name="isi" rows="3" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary mb-2" name="submit">Tambah</button>
-                    </form>
-                </div>
-            </div>
-            <div class="col-sm-6 mx-auto">
-                <div class="card px-5">
-                    <h3 class="mb-3 mx-auto mt-3">Ubah Data Tamu</h3>
-                    <form method="POST">
-                        <div class="form-group">
-                            <label for="nama">ID</label>
-                            <input type="text" class="form-control" id="id_ubah" name="id_ubah" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="nama">Nama</label>
-                            <input type="text" class="form-control" id="nama_ubah" name="nama" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email_ubah" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="isi">Isi</label>
-                            <textarea class="form-control" id="isi_ubah" name="isi" rows="3" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary mb-2" name="change">Ubah</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <h1 class="mb-3">Daftar Buku Tamu</h1>
+        <a href="../index.html" class="btn btn-info mt-2">Back</a>
+        <h1 class="mb-3 mt-3">Daftar Buku Tamu</h1>
         <table class="table mx-auto">
             <thead class="thead-dark">
                 <tr>
@@ -162,7 +115,6 @@ if (isset($_GET['delete_id'])) {
                 ?>
             </tbody>
         </table>
-        <hr>
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -184,32 +136,88 @@ if (isset($_GET['delete_id'])) {
             </div>
         </div>
 
-        <script src="js/jquery-3.6.3.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.js"></script>
-        <script>
-            $('#myModal').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget)
-                var id_bt = button.data('id')
-                var nama_bt = button.data('nama')
-                var isi = button.data('isi')
-                var modal = $(this)
-                modal.find('#modal-id').text(id_bt)
-                modal.find('#modal-nama').text(nama_bt)
-                modal.find('#modal-isi').text(isi)
-            })
-
-            function fillForm(id) {
-                console.log(id);
-                document.getElementById("id_ubah").value = id;
-                document.getElementById("nama_ubah").focus();
-                window.scrollTo(0, 0);
-            }
-        </script>
+        <!-- Form tambah data -->
+        <h1 class="mt-2">Form Buku Tamu</h1>
+        <div class="row mt-3">
+            <div class="col-sm-6 mx-auto">
+                <div class="card-header text-white bg-secondary text-center">
+                    Tambah Data Tamu
+                </div>
+                <div class="card px-5">
+                    <form method="POST">
+                        <div class="form-group mt-3">
+                            <label for="nama">Nama</label>
+                            <input type="text" class="form-control" id="nama" name="nama" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="isi">Isi</label>
+                            <textarea class="form-control" id="isi" name="isi" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2" name="submit">Tambah</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-6 mx-auto">
+                <div class="card-header text-white bg-secondary text-center">
+                    Ubah Data Tamu
+                </div>
+                <div class="card px-5">
+                    <form method="POST">
+                        <div class="form-group mt-3">
+                            <label for="nama">ID</label>
+                            <input type="text" class="form-control" id="id_ubah" name="id_ubah" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama">Nama</label>
+                            <input type="text" class="form-control" id="nama_ubah" name="nama" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email_ubah" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="isi">Isi</label>
+                            <textarea class="form-control" id="isi_ubah" name="isi" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2" name="change">Ubah</button>
+                    </form>
+                </div>
+            </div>
+        </div>
 </body>
 <footer>
     <footer-component></footer-component>
+
+    <script src="../default.js"></script>
+
+    <script src="js/jquery-3.6.3.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script>
+        // Modal controller
+        $('#myModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var id_bt = button.data('id')
+            var nama_bt = button.data('nama')
+            var isi = button.data('isi')
+            var modal = $(this)
+            modal.find('#modal-id').text(id_bt)
+            modal.find('#modal-nama').text(nama_bt)
+            modal.find('#modal-isi').text(isi)
+        })
+
+        // Fill form for table
+        function fillForm(id) {
+            console.log(id);
+            document.getElementById("id_ubah").value = id;
+            document.getElementById("nama_ubah").focus();
+            window.scrollTo(0, 0);
+        }
+    </script>
 </footer>
-<script src="../default.js"></script>
 
 </html>
