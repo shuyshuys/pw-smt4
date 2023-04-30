@@ -1,13 +1,6 @@
 <?php
 // Import string koneksi ke database
 include('database.php');
-// $servername = "localhost";
-// $username = "root";
-// $password = "";
-// $dbname = "pegawai";
-
-// Membuat koneksi
-// $con = mysqli_connect($servername, $username, $password, $dbname);
 
 // Mengecek koneksi
 if (mysqli_connect_errno()) {
@@ -19,7 +12,6 @@ if (isset($_POST['submit'])) {
     // Menangkap data yang dikirimkan dari form
     $nama = $_POST['nama_buat'];
     $id_jabatan = $_POST['jabatan_buat'];
-    // $isi = $_POST[''];
 
     // Menyimpan data ke tabel
     $sql = "INSERT INTO pegawai (nama_pegawai, id_jabatan) VALUES ('$nama', '$id_jabatan')";
