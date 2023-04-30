@@ -1,13 +1,6 @@
 <?php
 // Import string koneksi ke database
 include('database.php');
-// $servername = "localhost";
-// $username = "root";
-// $password = "";
-// $dbname = "buku_tamu";
-
-// Membuat koneksi
-$con = mysqli_connect($servername, $username, $password, $dbname);
 
 // Mengecek koneksi
 if (mysqli_connect_errno()) {

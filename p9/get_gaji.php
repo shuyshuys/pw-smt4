@@ -1,11 +1,6 @@
 <?php
 // Koneksi ke database
 include('database.php');
-// $host = "localhost";
-// $user = "root";
-// $password = "";
-// $database = "pegawai";
-// $con = mysqli_connect($host, $user, $password, $database);
 
 // Mendapatkan nilai id_jabatan dari parameter GET
 $id_jabatan = $_GET["id_jabatan"];
