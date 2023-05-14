@@ -5,27 +5,76 @@ require_once "auth/auth.php";
 include "auth/koneksi.php";
 
 // Mengecek apakah user telah login
-// if (!is_authenticated()) {
-//     // Jika tidak, redirect ke halaman login
-//     header('Location: auth/login.php');
-//     exit();
-// }
+if (!is_authenticated()) {
+    // Jika tidak, redirect ke halaman login
+    header('Location: auth/login.php');
+    exit();
+}
 
 if (isset($_POST['submit'])) {
     // ambil nilai form
 
-    $id_registrasi;
-    $id_siswa;
-    $id_pendaftaran;
-    $tgl_masuk_sekolah;
-    $nis;
-    $no_peserta_ujian;
-    $kode_paud;
-    $kode_tk;
-    $no_skhun;
-    $no_ijazah;
-    $id_hobi;
-    $id_cita;
+    $id_registrasi = "";
+    $id_siswa = "";
+    $id_pendaftaran = "";
+    $tgl_masuk_sekolah = "";
+    $nis = "";
+    $no_peserta_ujian = "";
+    $kode_paud = "";
+    $kode_tk = "";
+    $no_skhun = "";
+    $no_ijazah = "";
+    $id_hobi = "";
+    $id_cita = "";
+
+    // ambil nilai session halaman registrasi
+    $id_registrasi = $_SESSION['registrasi']['id_daftar'];
+    $tanggal_masuk_sekolah = $_SESSION['registrasi']['tanggal_masuk_sekolah'];
+    $nomor_induk_mahasiswa = $_SESSION['registrasi']['nomor_induk_mahasiswa'];
+    $apakah_pernah_paud = $_SESSION['registrasi']['apakah_pernah_paud'];
+    $apakah_pernah_tk = $_SESSION['registrasi']['apakah_pernah_tk'];
+    $nomor_seri_ijazah_sebelumnya = $_SESSION['registrasi']['nomor_seri_ijazah_sebelumnya'];
+    $hobi = $_SESSION['registrasi']['hobi'];
+    $cita = $_SESSION['registrasi']['cita'];
+
+    // ambil nilai session halaman data-pribadi
+    $nama_lengkap = $_SESSION['data-pribadi']['nama_lengkap'];
+    $jenis_kelamin = $_SESSION['data-pribadi']['jenis_kelamin'];
+    $nisn = $_SESSION['data-pribadi']['nisn'];
+    $nik = $_SESSION['data-pribadi']['nik'];
+    $tanggal_lahir = $_SESSION['data-pribadi']['tanggal_lahir'];
+    $agama = $_SESSION['data-pribadi']['agama'];
+    $berkebutuhan_khusus = $_SESSION['data-pribadi']['berkebutuhan_khusus'];
+    $alamat = $_SESSION['data-pribadi']['alamat'];
+    $rt = $_SESSION['data-pribadi']['rt'];
+    $rw = $_SESSION['data-pribadi']['rw'];
+    $nama_dusun = $_SESSION['data-pribadi']['nama_dusun'];
+    $nama_kelurahan = $_SESSION['data-pribadi']['nama_kelurahan'];
+    $kode_pos = $_SESSION['data-pribadi']['kode_pos'];
+    $tempat_tinggal = $_SESSION['data-pribadi']['tempat_tinggal'];
+    $moda_transportasi = $_SESSION['data-pribadi']['moda_transportasi'];
+    $nomor_hp = $_SESSION['data-pribadi']['nomor_hp'];
+    $nomor_telepon = $_SESSION['data-pribadi']['nomor_telepon'];
+    $email = $_SESSION['data-pribadi']['email'];
+    $penerima_kps = $_SESSION['data-pribadi']['penerima_kps'];
+    $nomor_kps = $_SESSION['data-pribadi']['nomor_kps'];
+    $kewarganegaraan = $_SESSION['data-pribadi']['kewarganegaraan'];
+    $nama_negara = $_SESSION['data-pribadi']['nama_negara'];
+
+    // ambil nilai session halaman data-orang-tua
+    $nama_ayah = $_SESSION['data-orang-tua']['nama_ayah'];
+    $tahun_lahir_ayah = $_SESSION['data-orang-tua']['ayah_tahun_lahir'];
+    $pendidikan_ayah = $_SESSION['data-orang-tua']['ayah_pendidikan_ortu'];
+    $pekerjaan_ayah = $_SESSION['data-orang-tua']['ayah_pekerjaan_ortu'];
+    $penghasilan_ayah = $_SESSION['data-orang-tua']['ayah_penghasilan_ortu'];
+    $ayah_berkebutuhan_khusus = $_SESSION['data-orang-tua']['ayah_berkebutuhan_khusus'];
+    $nama_ibu = $_SESSION['data-orang-tua']['nama_ibu'];
+    $tahun_lahir_ibu = $_SESSION['data-orang-tua']['ibu_tahun_lahir'];
+    $pendidikan_ibu = $_SESSION['data-orang-tua']['ibu_pendidikan_ortu'];
+    $pekerjaan_ibu = $_SESSION['data-orang-tua']['ibu_pekerjaan_ortu'];
+    $penghasilan_ibu = $_SESSION['data-orang-tua']['ibu_penghasilan_ortu'];
+    $ibu_berkebutuhan_khusus = $_SESSION['data-orang-tua']['ibu_berkebutuhan_khusus'];
+
 
     $jenis_pendaftaran = $_POST['jenis_pendaftaran'];
     $tgl_masuk_sekolah = date('Y-m-d', strtotime($_POST['tanggal_masuk_sekolah']));
