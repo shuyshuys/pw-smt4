@@ -15,19 +15,46 @@ if (!is_authenticated()) {
 if (isset($_POST['submit'])) {
     // Simpan data ke dalam variabel session
     $_SESSION['registrasi'] = [
-        'id_daftar' => $_POST['id_daftar'],
+        'jenis_pendaftaran' => $_POST['jenis_pendaftaran'],
         'tanggal_masuk_sekolah' => $_POST['tanggal_masuk_sekolah'],
-        'nomor_induk_mahasiswa' => $_POST['nomor_induk_mahasiswa'],
+        'nomor_induk_sekolah' => $_POST['nomor_induk_sekolah'],
+        'nomor_peserta_ujian' => $_POST['nomor_peserta_ujian'],
         'apakah_pernah_paud' => $_POST['apakah_pernah_paud'],
         'apakah_pernah_tk' => $_POST['apakah_pernah_tk'],
-        'nomor_seri_ijazah_sebelumya' => $_POST['nomor_seri_ijazah_sebelumnya'],
+        'nomor_seri_skhun_sebelumnya' => $_POST['nomor_seri_skhun_sebelumnya'],
+        'nomor_seri_ijazah_sebelumnya' => $_POST['nomor_seri_ijazah_sebelumnya'],
         'hobi' => $_POST['hobi'],
         'cita' => $_POST['cita']
     ];
-    echo $_SESSION['registrasi']['hobi'];
+
     // Melanjutkan ke halaman data-pribadi.php
     header('Location: data-pribadi.php');
     exit;
+}
+
+// Mengecek apakah data sudah ada di session
+if (isset($_SESSION['registrasi'])) {
+    $jenis_pendaftaran = $_SESSION['registrasi']['jenis_pendaftaran'];
+    $tanggal_masuk_sekolah = $_SESSION['registrasi']['tanggal_masuk_sekolah'];
+    $nomor_induk_sekolah = $_SESSION['registrasi']['nomor_induk_sekolah'];
+    $nomor_peserta_ujian = $_SESSION['registrasi']['nomor_peserta_ujian'];
+    $apakah_pernah_paud = $_SESSION['registrasi']['apakah_pernah_paud'];
+    $apakah_pernah_tk = $_SESSION['registrasi']['apakah_pernah_tk'];
+    $nomor_seri_skhun_sebelumnya = $_SESSION['registrasi']['nomor_seri_skhun_sebelumnya'];
+    $nomor_seri_ijazah_sebelumnya = $_SESSION['registrasi']['nomor_seri_ijazah_sebelumnya'];
+    $hobi = $_SESSION['registrasi']['hobi'];
+    $cita = $_SESSION['registrasi']['cita'];
+} else {
+    $jenis_pendaftaran = '';
+    $tanggal_masuk_sekolah = '';
+    $nomor_induk_mahasiswa = '';
+    $nomor_peserta_ujian = '';
+    $apakah_pernah_paud = '';
+    $apakah_pernah_tk = '';
+    $nomor_seri_skhun_sebelumnya = '';
+    $nomor_seri_ijazah_sebelumnya = '';
+    $hobi = '';
+    $cita = '';
 }
 ?>
 
@@ -73,12 +100,14 @@ if (isset($_POST['submit'])) {
                                     Pendaftaran:</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" id="jenis_pendaftaran" name="jenis_pendaftaran">
-                                        <option value="">- Pilih jenis pendaftaran -</option>
+                                        <option value="<?php echo isset($id_daftar); ?>">- Pilih jenis pendaftaran -
+                                        </option>
                                         <?php
                                         $query_jenis_pendaftaran = "SELECT * FROM jenis_pendaftaran";
                                         $result_jenis_pendaftaran = mysqli_query($koneksi, $query_jenis_pendaftaran);
-                                        while ($row_jenis_pendaftaran = mysqli_fetch_assoc($result_jenis_pendaftaran)) { ?>
-                                            <option value="<?php echo $row_jenis_pendaftaran['id_pendaftaran']; ?>" name="id_daftar" id="id_daftar">
+                                        while ($row_jenis_pendaftaran = mysqli_fetch_assoc($result_jenis_pendaftaran)) {
+                                            $id_pendaftaran = $row_jenis_pendaftaran['id_pendaftaran']; ?>
+                                            <option value="<?php echo $row_jenis_pendaftaran['id_pendaftaran']; ?>" <?php if ($jenis_pendaftaran == $id_pendaftaran) echo 'selected'; ?> name="jenis_pendaftaran" id="jenis_pendaftaran">
                                                 <?php echo $row_jenis_pendaftaran['keterangan_pendaftaran']; ?></option>
                                         <?php } ?>
                                     </select>
@@ -88,22 +117,22 @@ if (isset($_POST['submit'])) {
                                 <label for="tanggal_masuk_sekolah" class="col-sm-3 col-form-label">Tanggal Masuk
                                     Sekolah:</label>
                                 <div class="col-sm-9">
-                                    <input type="date" class="form-control" id="tanggal_masuk_sekolah" name="tanggal_masuk_sekolah" value="<?php echo date("d/m/Y"); ?>">
+                                    <input type="date" class="form-control" id="tanggal_masuk_sekolah" name="tanggal_masuk_sekolah" value="<?php echo isset($tanggal_masuk_sekolah) ? $tanggal_masuk_sekolah : ''; ?>">
 
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nomor_induk_mahasiswa" class="col-sm-3 col-form-label">Nomor Induk
+                                <label for="nomor_induk_sekolah" class="col-sm-3 col-form-label">Nomor Induk
                                     Sekolah:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="nomor_induk_mahasiswa" name="nomor_induk_mahasiswa" placeholder="Masukkan Nomor Induk Sekolah 10 digit">
+                                    <input type="text" class="form-control" id="nomor_induk_sekolah" name="nomor_induk_sekolah" placeholder="Masukkan Nomor Induk Sekolah 10 digit" value="<?php echo isset($nomor_induk_sekolah) ? $nomor_induk_sekolah : ''; ?>">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="nomor_peserta_ujian" class="col-sm-3 col-form-label">Nomor Peserta
                                     Ujian:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="nomor_peserta_ujian" name="nomor_peserta_ujian" placeholder="Masukkan Nomor Peserta Ujian 20 digit">
+                                    <input type="text" class="form-control" id="nomor_peserta_ujian" name="nomor_peserta_ujian" placeholder="Masukkan Nomor Peserta Ujian 20 digit" value="<?php echo isset($nomor_peserta_ujian) ? $nomor_peserta_ujian : ''; ?>">
                                     <p>Nomor peserta Ujian adalah 20 digit yang tertera dalam sertifikat
                                         <span class="warning">SKHUN
                                             SD</span>, diisi bagi jenjang SMP.
@@ -120,7 +149,14 @@ if (isset($_POST['submit'])) {
                                         $query_paud = "SELECT * FROM paud";
                                         $result_paud = mysqli_query($koneksi, $query_paud);
                                         while ($row_paud = mysqli_fetch_assoc($result_paud)) {
-                                            echo '<option value="' . $row_paud["kode_paud"] . '">' . $row_paud["keterangan"] . '</option>';
+                                            $kode_paud = $row_paud['kode_paud'];
+
+                                            if ($apakah_pernah_paud == $kode_paud) {
+                                                $selected = "selected";
+                                            } else {
+                                                $selected = "";
+                                            }
+                                            echo '<option value="' . $row_paud["kode_paud"] . '"' . $selected . '>' . $row_paud["keterangan"] . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -135,7 +171,14 @@ if (isset($_POST['submit'])) {
                                         $query_tk = "SELECT * FROM tk";
                                         $result_tk = mysqli_query($koneksi, $query_tk);
                                         while ($row_tk = mysqli_fetch_assoc($result_tk)) {
-                                            echo '<option value="' . $row_tk["kode_tk"] . '">' . $row_tk["keterangan"] . '</option>';
+                                            $kode_tk = $row_tk['kode_tk'];
+
+                                            if ($apakah_pernah_tk == $kode_tk) {
+                                                $selected = "selected";
+                                            } else {
+                                                $selected = "";
+                                            }
+                                            echo '<option value="' . $row_tk["kode_tk"] . '"' . $selected . '>' . $row_tk["keterangan"] . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -145,14 +188,14 @@ if (isset($_POST['submit'])) {
                                 <label for="nomor_seri_skhun_sebelumnya" class="col-sm-3 col-form-label">Nomor Seri
                                     SKHUN Sebelumnya:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="nomor_seri_skhun_sebelumnya" name="nomor_seri_skhun_sebelumnya" placeholder="Masukkan Nomor Seri SKHUN Sebelumnya">
+                                    <input type="text" class="form-control" id="nomor_seri_skhun_sebelumnya" name="nomor_seri_skhun_sebelumnya" placeholder="Masukkan Nomor Seri SKHUN Sebelumnya" value="<?php echo isset($nomor_seri_skhun_sebelumnya) ? $nomor_seri_skhun_sebelumnya : ''; ?>">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="nomor_seri_ijazah_sebelumnya" class="col-sm-3 col-form-label">Nomor Seri
                                     Ijazah Sebelumnya:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="nomor_seri_ijazah_sebelumnya" name="nomor_seri_ijazah_sebelumnya" placeholder="Masukkan Nomor Seri Ijazah Sebelumnya">
+                                    <input type="text" class="form-control" id="nomor_seri_ijazah_sebelumnya" name="nomor_seri_ijazah_sebelumnya" placeholder="Masukkan Nomor Seri Ijazah Sebelumnya" value="<?php echo isset($nomor_seri_ijazah_sebelumnya) ? $nomor_seri_ijazah_sebelumnya : ''; ?>">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -164,7 +207,14 @@ if (isset($_POST['submit'])) {
                                         $query_hobi = "SELECT * FROM hobi";
                                         $result_hobi = mysqli_query($koneksi, $query_hobi);
                                         while ($row_hobi = mysqli_fetch_assoc($result_hobi)) {
-                                            echo '<option value="' . $row_hobi["id_hobi"] . '">' . $row_hobi["nama_hobi"] . '</option>';
+                                            $id_hobi = $row_tk['id_hobi'];
+
+                                            if ($hobi == $id_hobi) {
+                                                $selected = "selected";
+                                            } else {
+                                                $selected = "";
+                                            }
+                                            echo '<option value="' . $row_hobi["id_hobi"] . '"' . $selected . '>' . $row_hobi["nama_hobi"] . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -173,13 +223,20 @@ if (isset($_POST['submit'])) {
                             <div class="form-group row">
                                 <label for="cita_cita" class="col-sm-3 col-form-label">Cita-cita:</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" id="cita_cita" name="cita_cita">
+                                    <select class="form-control" id="cita" name="cita">
                                         <option value="">- Pilih cita-cita -</option>
                                         <?php
                                         $query_cita_cita = "SELECT * FROM cita";
                                         $result_cita_cita = mysqli_query($koneksi, $query_cita_cita);
                                         while ($row_cita_cita = mysqli_fetch_assoc($result_cita_cita)) {
-                                            echo '<option value="' . $row_cita_cita["id_cita"] . '">' . $row_cita_cita["nama_cita"] . '</option>';
+                                            $id_cita_cita = $row_cita_cita['id_cita'];
+
+                                            if ($cita == $id_cita_cita) {
+                                                $selected = "selected";
+                                            } else {
+                                                $selected = "";
+                                            }
+                                            echo '<option value="' . $row_cita_cita["id_cita"] . '"' . $selected . '>' . $row_cita_cita["nama_cita"] . '</option>';
                                         }
                                         ?>
                                     </select>
