@@ -94,24 +94,29 @@ if (isset($_POST['submit'])) {
     // ambil id alamat
     $id_alamat_pr = mysqli_insert_id($koneksi);
 
+    $unique_id_siswa = substr(uniqid(), 0, 10);
     // masukkan id_siswa, nama_lengkap, jenis_kelamin, nisn, nik, tanggal_lahir, agama, berkebutuhan_khusus, alamat, tempat_tinggal, moda_transportasi, nomor_hp, nomor_telepon, email, penerima_kps, nomor_kps, kewarganegaraan kedalam tabel siswa
     $query = "INSERT INTO siswa (id_siswa, nama_lengkap, kode_jenis_kelamin, nisn, nik, tgl_lahir, id_agama, id_kebutuhan_khusus, id_alamat, id_tempat_tinggal, id_moda_transportasi, no_hp, nomor_telepon, email, kode_kps_kks_pkh_kip, no_kps_kks_pkh_kip, kode_kewarganegaraan)
-    VALUES ('$id_siswa', '$nama_lengkap', '$jenis_kelamin', '$nisn', '$nik', '$tanggal_lahir', '$agama', '$berkebutuhan_khusus', '$id_alamat_pr', '$tempat_tinggal', '$moda_transportasi', '$nomor_hp', '$nomor_telepon', '$email', '$penerima_kps', '$nomor_kps', '$kewarganegaraan')";
+    VALUES ('$unique_id_siswa', '$nama_lengkap', '$jenis_kelamin', '$nisn', '$nik', '$tanggal_lahir', '$agama', '$berkebutuhan_khusus', '$id_alamat_pr', '$tempat_tinggal', '$moda_transportasi', '$nomor_hp', '$nomor_telepon', '$email', '$penerima_kps', '$nomor_kps', '$kewarganegaraan')";
     $result = mysqli_query($koneksi, $query);
 
+    $unique_ortu_ayah = substr(uniqid(), 0, 10);
     // masukkan id_siswa, nama_ayah, ayah_tahun_lahir, ayah_pendidikan_ortu, ayah_pekerjaan_ortu, ayah_penghasilan_ortu, ayah_berkebutuhan_khusus kedalam tabel ayah
-    $query = "INSERT INTO ortu_ayah (id_siswa, nama_ayah, tahun_lahir, id_pendidikan_ortu, id_pekerjaan_ortu, id_penghasilan_ortu, id_kebutuhan_khusus)
-    VALUES ('$id_siswa', '$nama_ayah', '$tahun_lahir_ayah', '$pendidikan_ayah', '$pekerjaan_ayah', '$penghasilan_ayah', '$ayah_berkebutuhan_khusus')";
+    $query = "INSERT INTO ortu_ayah (id_ortu_ayah, id_siswa, nama_ayah, tahun_lahir, id_pendidikan_ortu, id_pekerjaan_ortu, id_penghasilan_ortu, id_kebutuhan_khusus)
+    VALUES ('$unique_ortu_ayah', '$unique_id_siswa', '$nama_ayah', '$tahun_lahir_ayah', '$pendidikan_ayah', '$pekerjaan_ayah', '$penghasilan_ayah', '$ayah_berkebutuhan_khusus')";
     $result = mysqli_query($koneksi, $query);
 
+    $unique_ortu_ibu = substr(uniqid(), 0, 10);
     // masukkan id_siswa, nama_ibu, ibu_tahun_lahir, ibu_pendidikan_ortu, ibu_pekerjaan_ortu, ibu_penghasilan_ortu, ibu_berkebutuhan_khusus kedalam tabel ibu
-    $query = "INSERT INTO ortu_ibu (id_siswa, nama_ibu, tahun_lahir, id_pendidikan_ortu, id_pekerjaan_ortu, id_penghasilan_ortu, id_kebutuhan_khusus)
-    VALUES ('$id_siswa', '$nama_ibu', '$tahun_lahir_ibu', '$pendidikan_ibu', '$pekerjaan_ibu', '$penghasilan_ibu', '$ibu_berkebutuhan_khusus')";
+    $query = "INSERT INTO ortu_ibu (id_ortu_ibu, id_siswa, nama_ibu, tahun_lahir, id_pendidikan_ortu, id_pekerjaan_ortu, id_penghasilan_ortu, id_kebutuhan_khusus)
+    VALUES ('$unique_ortu_ibu', '$unique_id_siswa', '$nama_ibu', '$tahun_lahir_ibu', '$pendidikan_ibu', '$pekerjaan_ibu', '$penghasilan_ibu', '$ibu_berkebutuhan_khusus')";
     $result = mysqli_query($koneksi, $query);
 
+    $unique_id = substr(uniqid(), 0, 10);
+    $_SESSION['unique_id'] = $unique_id;
     // masukkan kedalam tabel registrasi
-    $query = "INSERT INTO registrasi (id_siswa, id_pendaftaran, tgl_masuk_sekolah, nis, no_peserta_ujian, kode_paud, kode_tk, no_skhun, no_ijazah, id_hobi, id_cita) 
-VALUES ('$id_siswa', '$id_pendaftaran', '$tanggal_masuk_sekolah ', '$nomor_induk_sekolah', '$nomor_peserta_ujian', '$apakah_pernah_paud', '$apakah_pernah_tk', '$nomor_seri_skhun_sebelumnya', '$nomor_seri_ijazah_sebelumnya', '$hobi', '$cita')";
+    $query = "INSERT INTO registrasi (id_registrasi, id_siswa, id_pendaftaran, tgl_masuk_sekolah, nis, no_peserta_ujian, kode_paud, kode_tk, no_skhun, no_ijazah, id_hobi, id_cita) 
+VALUES ('$unique_id', '$unique_id_siswa', '$id_pendaftaran', '$tanggal_masuk_sekolah ', '$nomor_induk_sekolah', '$nomor_peserta_ujian', '$apakah_pernah_paud', '$apakah_pernah_tk', '$nomor_seri_skhun_sebelumnya', '$nomor_seri_ijazah_sebelumnya', '$hobi', '$cita')";
     $result = mysqli_query($koneksi, $query);
     if (!$result) {
         die("Query gagal dijalankan: " . mysqli_error($koneksi));
