@@ -27,9 +27,32 @@ if (isset($_POST['submit'])) {
         'cita' => $_POST['cita']
     ];
 
-    // Melanjutkan ke halaman data-pribadi.php
-    header('Location: data-pribadi.php');
-    exit;
+    // Membuat variabel array untuk menampung error
+    $errors = [];
+
+    if (!preg_match("/^[0-9]{10}$/", $_POST['nomor_induk_sekolah'])) {
+        $error_no_induk = "Nomor Induk sekolah harus terdiri dari 10 digit angka.";
+        $errors[] = $error_no_induk;
+    }
+    if (!preg_match("/^[0-9]{20}$/", $_POST['nomor_peserta_ujian'])) {
+        $error_no_peserta_ujian = "Nomor Peserta Ujian harus terdiri dari 20 digit angka.";
+        $errors[] = $error_no_peserta_ujian;
+    }
+    if (!preg_match("/^[0-9]{16}$/", $_POST['nomor_seri_skhun_sebelumnya'])) {
+        $error_no_seri_skhun = "Nomor Seri SKHUN Sebelumnya harus terdiri dari 16 digit angka.";
+        $errors[] = $error_no_seri_skhun;
+    }
+    if (!preg_match("/^[0-9]{16}$/", $_POST['nomor_seri_ijazah_sebelumnya'])) {
+        $error_no_seri_ijazah = "Nomor Seri Ijazah Sebelumnya harus terdiri dari 16 digit angka.";
+        $errors[] = $error_no_seri_ijazah;
+    }
+
+    // if empty $errors, continue
+    if (empty($errors)) {
+        // Redirect ke halaman selanjutnya
+        header('Location: data-pribadi.php');
+        exit();
+    }
 }
 
 // Mengecek apakah data sudah ada di session
@@ -47,7 +70,7 @@ if (isset($_SESSION['registrasi'])) {
 } else {
     $jenis_pendaftaran = '';
     $tanggal_masuk_sekolah = '';
-    $nomor_induk_mahasiswa = '';
+    $nomor_induk_sekolah = '';
     $nomor_peserta_ujian = '';
     $apakah_pernah_paud = '';
     $apakah_pernah_tk = '';
@@ -65,8 +88,8 @@ if (isset($_SESSION['registrasi'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- cdn bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- cdn bootstrap v5-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .warning {
             color: #FF0000;
@@ -77,25 +100,23 @@ if (isset($_SESSION['registrasi'])) {
 </head>
 
 <body>
-    <?php if (!empty($errors)) : ?>
-        <div class="alert alert-danger">
-            <ul>
-                <?php foreach ($errors as $error) : ?>
-                    <li><?php echo $error; ?></li>
-                <?php endforeach; ?>
-            </ul>
-
-        </div>
-    <?php endif; ?>
     <div class="container mt-4 mb-4">
-        <h1 class="text-center card-header">Formulir Peserta Didik</h1>
+        <?php if (!empty($errors)) :
+            foreach ($errors as $error) : ?>
+                <div class="alert alert-danger  alert-dismissible fade show mt-1">
+                    <?php echo $error; ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+        <?php endforeach;
+        endif; ?>
+        <h1 class="card-header text-center">Formulir Peserta Didik</h1>
         <div class="row mt-4">
             <div class="col-sm-12">
                 <div class="card">
                     <h4 class="card-header text-white bg-secondary">REGISTRASI PESERTA DIDIK</h4>
                     <div class="card-body">
                         <form id="form_pendaftaran" method="post" action="">
-                            <div class="form-group row">
+                            <div class="form-group row mb-2">
                                 <label for="jenis_pendaftaran" class="col-sm-3 col-form-label">Jenis
                                     Pendaftaran:</label>
                                 <div class="col-sm-9">
@@ -113,7 +134,7 @@ if (isset($_SESSION['registrasi'])) {
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mb-2">
                                 <label for="tanggal_masuk_sekolah" class="col-sm-3 col-form-label">Tanggal Masuk
                                     Sekolah:</label>
                                 <div class="col-sm-9">
@@ -121,14 +142,14 @@ if (isset($_SESSION['registrasi'])) {
 
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mb-2">
                                 <label for="nomor_induk_sekolah" class="col-sm-3 col-form-label">Nomor Induk
                                     Sekolah:</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="nomor_induk_sekolah" name="nomor_induk_sekolah" placeholder="Masukkan Nomor Induk Sekolah 10 digit" value="<?php echo isset($nomor_induk_sekolah) ? $nomor_induk_sekolah : ''; ?>">
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mb-2">
                                 <label for="nomor_peserta_ujian" class="col-sm-3 col-form-label">Nomor Peserta
                                     Ujian:</label>
                                 <div class="col-sm-9">
@@ -139,7 +160,7 @@ if (isset($_SESSION['registrasi'])) {
                                     </p>
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mb-2">
                                 <label for="apakah_pernah_paud" class="col-sm-3 col-form-label">Apakah Pernah
                                     PAUD:</label>
                                 <div class="col-sm-9">
@@ -162,8 +183,9 @@ if (isset($_SESSION['registrasi'])) {
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="apakah_pernah_tk" class="col-sm-3 col-form-label">Apakah Pernah TK:</label>
+                            <div class="form-group row mb-2">
+                                <label for="apakah_pernah_tk" class="col-sm-3 col-form-label">Apakah Pernah
+                                    TK:</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" id="apakah_pernah_tk" name="apakah_pernah_tk">
                                         <option value="">- Pilih opsi -</option>
@@ -184,21 +206,21 @@ if (isset($_SESSION['registrasi'])) {
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mb-2">
                                 <label for="nomor_seri_skhun_sebelumnya" class="col-sm-3 col-form-label">Nomor Seri
                                     SKHUN Sebelumnya:</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="nomor_seri_skhun_sebelumnya" name="nomor_seri_skhun_sebelumnya" placeholder="Masukkan Nomor Seri SKHUN Sebelumnya" value="<?php echo isset($nomor_seri_skhun_sebelumnya) ? $nomor_seri_skhun_sebelumnya : ''; ?>">
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mb-2">
                                 <label for="nomor_seri_ijazah_sebelumnya" class="col-sm-3 col-form-label">Nomor Seri
                                     Ijazah Sebelumnya:</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="nomor_seri_ijazah_sebelumnya" name="nomor_seri_ijazah_sebelumnya" placeholder="Masukkan Nomor Seri Ijazah Sebelumnya" value="<?php echo isset($nomor_seri_ijazah_sebelumnya) ? $nomor_seri_ijazah_sebelumnya : ''; ?>">
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mb-2">
                                 <label for="hobi" class="col-sm-3 col-form-label">Hobi:</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" id="hobi" name="hobi">
@@ -207,7 +229,7 @@ if (isset($_SESSION['registrasi'])) {
                                         $query_hobi = "SELECT * FROM hobi";
                                         $result_hobi = mysqli_query($koneksi, $query_hobi);
                                         while ($row_hobi = mysqli_fetch_assoc($result_hobi)) {
-                                            $id_hobi = $row_tk['id_hobi'];
+                                            $id_hobi = $row_hobi['id_hobi'];
 
                                             if ($hobi == $id_hobi) {
                                                 $selected = "selected";
@@ -220,7 +242,7 @@ if (isset($_SESSION['registrasi'])) {
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mb-2">
                                 <label for="cita_cita" class="col-sm-3 col-form-label">Cita-cita:</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" id="cita" name="cita">
@@ -242,10 +264,12 @@ if (isset($_SESSION['registrasi'])) {
                                     </select>
                                 </div>
                             </div>
-                            <!-- button untuk submit -->
-                            <button type="submit" class="btn btn-primary float-right ml-2" id="submit" name="submit">Next</button>
-                            <!-- button reset -->
-                            <button type="reset" class="btn btn-danger float-right" name="reset">Reset</button>
+                            <div class="mb-3">
+                                <!-- button untuk submit -->
+                                <button type="submit" class="btn btn-primary float-end" id="submit" name="submit">Next</button>
+                                <!-- button reset -->
+                                <button type="reset" class="btn btn-danger float-end mx-2" name="reset">Reset</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -259,5 +283,8 @@ if (isset($_SESSION['registrasi'])) {
 </footer>
 
 <script src="js/default.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"></script>
 
 </html>
