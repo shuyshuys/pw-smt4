@@ -11,12 +11,12 @@ if (!is_authenticated()) {
     exit();
 }
 
-echo "<pre>";
-print_r($_SESSION['registrasi']);
-print_r($_SESSION['data-pribadi']);
-print_r($_SESSION['data-ayah']);
-print_r($_SESSION['data-ibu']);
-echo "</pre>";
+// echo "<pre>";
+// print_r($_SESSION['registrasi']);
+// print_r($_SESSION['data-pribadi']);
+// print_r($_SESSION['data-ayah']);
+// print_r($_SESSION['data-ibu']);
+// echo "</pre>";
 
 if (isset($_POST['submit'])) {
     // ambil nilai form
@@ -190,32 +190,32 @@ if (isset($_POST['back'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Proses Pendaftaran</title>
 </head>
 
 <body>
     <div class="container">
-        <?php if (!empty($errors)) : ?>
-            <div>
-                <ul>
-                    <?php foreach ($errors as $error) : ?>
-                        <li class="alert alert-danger"><?php echo $error; ?></li>
-                    <?php endforeach; ?>
-                </ul>
-
-            </div>
-        <?php endif; ?>
-        <form action="" method="post">
-            <!-- button untuk lanjut -->
-            <button type="submit" class="btn btn-primary float-right" id="submit" name="submit">Simpan ke
-                database</button>
-            <!-- button lihat isian -->
-            <button type="submit" class="btn btn-primary float-right mr-2" id="isian" name="isian">Lihat data
-                isian</button>
-            <!-- button untuk kembali -->
-            <button type="submit" class="btn btn-primary float-right mr-2" id="back" name="back">Back</button>
-        </form>
+        <?php if (!empty($errors)) :
+            foreach ($errors as $error) : ?>
+        <div class="alert alert-danger  alert-dismissible fade show mt-2">
+            <?php echo $error; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php endforeach;
+        endif; ?>
+        <div class="mt-3">
+            <form action="" method="post">
+                <!-- button untuk lanjut -->
+                <button type="submit" class="btn btn-primary" id="submit" name="submit">Simpan ke
+                    database</button>
+                <!-- button lihat isian -->
+                <button type="submit" class="btn btn-primary mr-2" id="isian" name="isian">Lihat data
+                    isian</button>
+                <!-- button untuk kembali -->
+                <button type="submit" class="btn btn-primary mr-2" id="back" name="back">Back</button>
+            </form>
+        </div>
     </div>
 </body>
 
