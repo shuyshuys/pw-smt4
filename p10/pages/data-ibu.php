@@ -75,17 +75,15 @@ if (isset($_POST['back'])) {
 </head>
 
 <body>
-    <?php if (!empty($errors)) : ?>
-        <div class="alert alert-danger">
-            <ul>
-                <?php foreach ($errors as $error) : ?>
-                    <li><?php echo $error; ?></li>
-                <?php endforeach; ?>
-            </ul>
-
-        </div>
-    <?php endif; ?>
     <div class="container mt-4 mb-4">
+        <?php if (!empty($errors)) :
+            foreach ($errors as $error) : ?>
+                <div class="alert alert-danger  alert-dismissible fade show mt-2">
+                    <?php echo $error; ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+        <?php endforeach;
+        endif; ?>
         <h1 class="text-center card-header">Formulir Orang Tua</h1>
         <div class="row mt-4">
             <div class="col-sm-12">

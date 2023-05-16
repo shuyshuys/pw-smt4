@@ -76,26 +76,24 @@ if (isset($_POST['back'])) {
     <!-- cdn bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .warning {
-            color: #FF0000;
-        }
+    .warning {
+        color: #FF0000;
+    }
     </style>
     <title>Formulir Data Orang Tua</title>
 
 </head>
 
 <body>
-    <?php if (!empty($errors)) : ?>
-        <div class="alert alert-danger">
-            <ul>
-                <?php foreach ($errors as $error) : ?>
-                    <li><?php echo $error; ?></li>
-                <?php endforeach; ?>
-            </ul>
-
-        </div>
-    <?php endif; ?>
     <div class="container mt-4 mb-4">
+        <?php if (!empty($errors)) :
+            foreach ($errors as $error) : ?>
+        <div class="alert alert-danger  alert-dismissible fade show mt-2">
+            <?php echo $error; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php endforeach;
+        endif; ?>
         <h1 class="text-center card-header">Formulir Orang Tua</h1>
         <div class="row mt-4">
             <div class="col-sm-12">
@@ -107,13 +105,17 @@ if (isset($_POST['back'])) {
                                 <label for="nama_ayah_kandung" class="col-sm-3 col-form-label">Nama Ayah
                                     Kandung:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="nama_ayah_kandung" id="nama_ayah_kandung" placeholder="Masukkan Nama Lengkap" value="<?php echo isset($nama_ayah) ? $nama_ayah : ''; ?>">
+                                    <input type="text" class="form-control" name="nama_ayah_kandung"
+                                        id="nama_ayah_kandung" placeholder="Masukkan Nama Lengkap"
+                                        value="<?php echo isset($nama_ayah) ? $nama_ayah : ''; ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-2">
                                 <label for="ayah_tahun_lahir" class="col-sm-3 col-form-label">Tahun Lahir:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="ayah_tahun_lahir" id="ayah_tahun_lahir" placeholder="Masukkan Tahun Lahir Ayah" value="<?php echo isset($ayah_tahun_lahir) ? $ayah_tahun_lahir : ''; ?>">
+                                    <input type="text" class="form-control" name="ayah_tahun_lahir"
+                                        id="ayah_tahun_lahir" placeholder="Masukkan Tahun Lahir Ayah"
+                                        value="<?php echo isset($ayah_tahun_lahir) ? $ayah_tahun_lahir : ''; ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-2">
@@ -127,8 +129,10 @@ if (isset($_POST['back'])) {
                                         while ($row_pendidikan_ortu = mysqli_fetch_assoc($result_pendidikan_ortu)) {
                                             $id_pendidikan_ortu = $row_pendidikan_ortu['id_pendidikan_ortu'];
                                         ?>
-                                            <option value="<?php echo $row_pendidikan_ortu['id_pendidikan_ortu']; ?>" name=" ayah_pendidikan_ortu" id="ayah_pendidikan_ortu" <?php if ($ayah_pendidikan_ortu == $id_pendidikan_ortu) echo 'selected'; ?>>
-                                                <?php echo $row_pendidikan_ortu['nama_pendidikan_ortu']; ?></option>
+                                        <option value="<?php echo $row_pendidikan_ortu['id_pendidikan_ortu']; ?>"
+                                            name=" ayah_pendidikan_ortu" id="ayah_pendidikan_ortu"
+                                            <?php if ($ayah_pendidikan_ortu == $id_pendidikan_ortu) echo 'selected'; ?>>
+                                            <?php echo $row_pendidikan_ortu['nama_pendidikan_ortu']; ?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -144,8 +148,10 @@ if (isset($_POST['back'])) {
                                         while ($row_pekerjaan_ortu = mysqli_fetch_assoc($result_pekerjaan_ortu)) {
                                             $id_pekerjaan_ortu = $row_pekerjaan_ortu['id_pekerjaan_ortu'];
                                         ?>
-                                            <option value="<?php echo $row_pekerjaan_ortu['id_pekerjaan_ortu']; ?>" name="ayah_pekerjaan_ortu" id="ayah_pekerjaan_ortu" <?php if ($ayah_pekerjaan_ortu == $id_pekerjaan_ortu) echo 'selected'; ?>>
-                                                <?php echo $row_pekerjaan_ortu['nama_pekerjaan_ortu']; ?></option>
+                                        <option value="<?php echo $row_pekerjaan_ortu['id_pekerjaan_ortu']; ?>"
+                                            name="ayah_pekerjaan_ortu" id="ayah_pekerjaan_ortu"
+                                            <?php if ($ayah_pekerjaan_ortu == $id_pekerjaan_ortu) echo 'selected'; ?>>
+                                            <?php echo $row_pekerjaan_ortu['nama_pekerjaan_ortu']; ?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -154,7 +160,8 @@ if (isset($_POST['back'])) {
                                 <label forayah_="ayah_penghasilan_ortu" class="col-sm-3 col-form-label">Penghasilan
                                     Bulanan:</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" id="ayah_penghasilan_ortu" name="ayah_penghasilan_ortu">
+                                    <select class="form-control" id="ayah_penghasilan_ortu"
+                                        name="ayah_penghasilan_ortu">
                                         <option value="">- Pilih Penghasilan Bulanan -</option>
                                         <?php
                                         $query_penghasilan_ortu = "SELECT * FROM penghasilan_ortu";
@@ -162,8 +169,10 @@ if (isset($_POST['back'])) {
                                         while ($row_penghasilan_ortu = mysqli_fetch_assoc($result_penghasilan_ortu)) {
                                             $id_penghasilan_ortu = $row_penghasilan_ortu['id_penghasilan_ortu'];
                                         ?>
-                                            <option value="<?php echo $row_penghasilan_ortu['id_penghasilan_ortu']; ?>" name="ayah_penghasilan_ortu" id="ayah_penghasilan_ortu" <?php if ($ayah_penghasilan_ortu == $id_penghasilan_ortu) echo 'selected'; ?>>
-                                                <?php echo $row_penghasilan_ortu['jumlah_penghasilan_ortu']; ?></option>
+                                        <option value="<?php echo $row_penghasilan_ortu['id_penghasilan_ortu']; ?>"
+                                            name="ayah_penghasilan_ortu" id="ayah_penghasilan_ortu"
+                                            <?php if ($ayah_penghasilan_ortu == $id_penghasilan_ortu) echo 'selected'; ?>>
+                                            <?php echo $row_penghasilan_ortu['jumlah_penghasilan_ortu']; ?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -172,7 +181,8 @@ if (isset($_POST['back'])) {
                                 <label for="ayah_berkebutuhan_khusus" class="col-sm-3 col-form-label">Berkebutuhan
                                     Khusus:</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" id="ayah_berkebutuhan_khusus" name="ayah_berkebutuhan_khusus">
+                                    <select class="form-control" id="ayah_berkebutuhan_khusus"
+                                        name="ayah_berkebutuhan_khusus">
                                         <option value="">- Pilih opsi -</option>
                                         <?php
                                         $query_kebutuhan_khusus = "SELECT * FROM kebutuhan_khusus";
@@ -180,17 +190,21 @@ if (isset($_POST['back'])) {
                                         while ($row_kebutuhan_khusus = mysqli_fetch_assoc($result_kebutuhan_khusus)) {
                                             $id_kebutuhan_khusus = $row_kebutuhan_khusus['id_kebutuhan_khusus'];
                                         ?>
-                                            <option value="<?php echo $row_kebutuhan_khusus['id_kebutuhan_khusus']; ?>" name="ayah_kebutuhan_khusus" id="ayah_kebutuhan_khusus" <?php if ($ayah_berkebutuhan_khusus == $id_kebutuhan_khusus) echo 'selected'; ?>>
-                                                <?php echo $row_kebutuhan_khusus['nama_kebutuhan_khusus']; ?></option>
+                                        <option value="<?php echo $row_kebutuhan_khusus['id_kebutuhan_khusus']; ?>"
+                                            name="ayah_kebutuhan_khusus" id="ayah_kebutuhan_khusus"
+                                            <?php if ($ayah_berkebutuhan_khusus == $id_kebutuhan_khusus) echo 'selected'; ?>>
+                                            <?php echo $row_kebutuhan_khusus['nama_kebutuhan_khusus']; ?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
                             </div>
 
                             <!-- button untuk lanjut -->
-                            <button type="submit" class="btn btn-primary float-end mx-1" id="submit" name="submit">Next</button>
+                            <button type="submit" class="btn btn-primary float-end mx-1" id="submit"
+                                name="submit">Next</button>
                             <!-- button untuk kembali -->
-                            <button type="submit" class="btn btn-primary float-end mx-1" id="back" name="back">Back</button>
+                            <button type="submit" class="btn btn-primary float-end mx-1" id="back"
+                                name="back">Back</button>
                             <!-- button reset -->
                             <button type="reset" class="btn btn-danger float-end mx-1" name="reset">Reset</button>
                         </form>

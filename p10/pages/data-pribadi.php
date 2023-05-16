@@ -75,12 +75,6 @@ if (isset($_POST['submit'])) {
         $errors[] = $error_email;
     }
 
-    // mengubah format nomor telepon
-    //$nomor_telepon_formatted = preg_replace("/^\+62(\d{3})(\d{4})(\d{4})$/", "+62-$1-$2-$3", $_POST['nomor_telepon']);
-
-    // menampilkan nomor telepon dalam form input
-    // <input type="text" name="nomor_telepon" value="<?php echo $nomor_telepon_formatted;> " class="form-control" required>
-
     // if empty $errors, continue
     if (empty($errors)) {
         // Redirect ke halaman selanjutnya
