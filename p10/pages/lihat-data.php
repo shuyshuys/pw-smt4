@@ -11,6 +11,7 @@ if (!is_authenticated()) {
     exit();
 }
 $unique_id = $_SESSION['unique_id'];
+
 // ambil data dari tabel registrasi, join dengan tabel cita, hobi, jenis_pendaftaran, paud, tk, dan siswa. kemudian siswa join dengan tabel agama, alamat, jenis_kelamin, kewarganegaraan, ortu_ayah, dan ortu_ibu
 $query = "SELECT 
 r.id_registrasi,
@@ -58,8 +59,20 @@ JOIN kewarganegaraan kw ON s.kode_kewarganegaraan = kw.kode_kewarganegaraan
 JOIN ortu_ayah oa ON s.id_siswa = oa.id_siswa
 JOIN ortu_ibu oi ON s.id_siswa= oi.id_siswa
 WHERE r.id_registrasi = '$unique_id'";
-$result = mysqli_query($koneksi, $query);
 
+// add error handling for mysql
+if (!$result = mysqli_query($koneksi, $query)) {
+    die("Query gagal dijalankan: " . mysqli_error($koneksi));
+}
+
+$hasilresult = mysqli_fetch_assoc($result);
+$_SESSION['tes'] = $hasilresult;
+$_SESSION['tes']['input'] = "testing";
+$_SESSION['tes']['query'] = $query;
+$_SESSION['tes']['id_user'] = $_SESSION['user']['id_user'];
+$_SESSION['tes']['username'] = $_SESSION['user']['username'];
+$_SESSION['tes']['password'] = $_SESSION['user']['password'];
+$_SESSION['tes']['uniq'] = $_SESSION['unique_id'];
 // Cek apakah user yang mengakses halaman ini adalah pemilik data
 // if ($_SESSION['id_user'] != $row['id_user']) {
 //     echo "Akses ditolak!";
@@ -91,6 +104,12 @@ if (isset($_POST['back'])) {
 
 <body>
     <div class="container mt-5">
+        <?php
+        echo "<pre>";
+        print_r($_SESSION['tes']);
+        echo "</pre>";
+        ?>
+        <?php if (isset($unique_id)) ?>
         <?php echo "<h1>Selamat datang, <span class='warning'>" . $_SESSION['user']['username'] . "</span></h1>" ?>
         <h2 class="mb-4 mt-2">Data Registrasi Informasi Peserta Didik Baru</h3>
             <form>
