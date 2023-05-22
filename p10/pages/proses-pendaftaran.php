@@ -11,12 +11,12 @@ if (!is_authenticated()) {
     exit();
 }
 
-echo "<pre>";
-print_r($_SESSION['registrasi']);
-print_r($_SESSION['data-pribadi']);
-print_r($_SESSION['data-ayah']);
-print_r($_SESSION['data-ibu']);
-echo "</pre>";
+// echo "<pre>";
+// print_r($_SESSION['registrasi']);
+// print_r($_SESSION['data-pribadi']);
+// print_r($_SESSION['data-ayah']);
+// print_r($_SESSION['data-ibu']);
+// echo "</pre>";
 
 if (isset($_POST['submit'])) {
     // ambil nilai form
@@ -104,19 +104,19 @@ if (isset($_POST['submit'])) {
     $unique_ortu_ayah = substr(uniqid(), 0, 10);
     // masukkan id_siswa, nama_ayah, ayah_tahun_lahir, ayah_pendidikan_ortu, ayah_pekerjaan_ortu, ayah_penghasilan_ortu, ayah_berkebutuhan_khusus kedalam tabel ayah
     $query = "INSERT INTO ortu_ayah (id_ortu_ayah, id_siswa, nama_ayah, tahun_lahir, id_pendidikan_ortu, id_pekerjaan_ortu, id_penghasilan_ortu, id_kebutuhan_khusus)
-    VALUES ('$unique_ortu_ayah', '$unique_id_siswa', '$nama_ayah', '$tahun_lahir_ayah', '$pendidikan_ayah', '$pekerjaan_ayah', '$penghasilan_ayah', '$ayah_berkebutuhan_khusus')";
+    VALUES ('$unique_ortu_ayah', '$id_siswa_pr', '$nama_ayah', '$tahun_lahir_ayah', '$pendidikan_ayah', '$pekerjaan_ayah', '$penghasilan_ayah', '$ayah_berkebutuhan_khusus')";
     $result = mysqli_query($koneksi, $query);
 
     $unique_ortu_ibu = substr(uniqid(), 0, 10);
     // masukkan id_siswa, nama_ibu, ibu_tahun_lahir, ibu_pendidikan_ortu, ibu_pekerjaan_ortu, ibu_penghasilan_ortu, ibu_berkebutuhan_khusus kedalam tabel ibu
     $query = "INSERT INTO ortu_ibu (id_ortu_ibu, id_siswa, nama_ibu, tahun_lahir, id_pendidikan_ortu, id_pekerjaan_ortu, id_penghasilan_ortu, id_kebutuhan_khusus)
-    VALUES ('$unique_ortu_ibu', '$unique_id_siswa', '$nama_ibu', '$tahun_lahir_ibu', '$pendidikan_ibu', '$pekerjaan_ibu', '$penghasilan_ibu', '$ibu_berkebutuhan_khusus')";
+    VALUES ('$unique_ortu_ibu', '$id_siswa_pr', '$nama_ibu', '$tahun_lahir_ibu', '$pendidikan_ibu', '$pekerjaan_ibu', '$penghasilan_ibu', '$ibu_berkebutuhan_khusus')";
     $result = mysqli_query($koneksi, $query);
 
     // $unique_id = substr(uniqid(), 0, 10);
     // masukkan kedalam tabel registrasi
     $query = "INSERT INTO registrasi (id_siswa, id_pendaftaran, tgl_masuk_sekolah, nis, no_peserta_ujian, kode_paud, kode_tk, no_skhun, no_ijazah, id_hobi, id_cita) 
-VALUES ('$unique_id_siswa', '$id_pendaftaran', '$tanggal_masuk_sekolah ', '$nomor_induk_sekolah', '$nomor_peserta_ujian', '$apakah_pernah_paud', '$apakah_pernah_tk', '$nomor_seri_skhun_sebelumnya', '$nomor_seri_ijazah_sebelumnya', '$hobi', '$cita')";
+VALUES ('$id_siswa_pr', '$id_pendaftaran', '$tanggal_masuk_sekolah ', '$nomor_induk_sekolah', '$nomor_peserta_ujian', '$apakah_pernah_paud', '$apakah_pernah_tk', '$nomor_seri_skhun_sebelumnya', '$nomor_seri_ijazah_sebelumnya', '$hobi', '$cita')";
     $result = mysqli_query($koneksi, $query);
 
     // ambil id registrasi dan masukkan ke sesi untuk dipakai di lain waktu
@@ -208,10 +208,10 @@ if (isset($_POST['logout'])) {
     <div class="container">
         <?php if (!empty($errors)) :
             foreach ($errors as $error) : ?>
-                <div class="alert alert-danger  alert-dismissible fade show mt-2">
-                    <?php echo $error; ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+        <div class="alert alert-danger  alert-dismissible fade show mt-2">
+            <?php echo $error; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <?php endforeach;
         endif; ?>
         <div class="mt-3">

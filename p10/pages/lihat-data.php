@@ -72,7 +72,6 @@ $_SESSION['tes']['query'] = $query;
 $_SESSION['tes']['id_user'] = $_SESSION['user']['id_user'];
 $_SESSION['tes']['username'] = $_SESSION['user']['username'];
 $_SESSION['tes']['password'] = $_SESSION['user']['password'];
-$_SESSION['tes']['uniq'] = $_SESSION['unique_id'];
 // Cek apakah user yang mengakses halaman ini adalah pemilik data
 // if ($_SESSION['id_user'] != $row['id_user']) {
 //     echo "Akses ditolak!";
@@ -80,9 +79,9 @@ $_SESSION['tes']['uniq'] = $_SESSION['unique_id'];
 // }
 
 // Kembali ke halaman sebelumnya
-if (isset($_POST['back'])) {
-    header('Location: registrasi.php');
-}
+//if (isset($_POST['back'])) {
+//    header('Location: registrasi.php');
+//}
 ?>
 
 <!DOCTYPE html>
@@ -105,15 +104,20 @@ if (isset($_POST['back'])) {
 <body>
     <div class="container mt-5">
         <?php
-        echo "<pre>";
-        print_r($_SESSION['tes']);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($_SESSION['tes']);
+        // echo "</pre>";
         ?>
         <?php if (isset($unique_id)) ?>
         <?php echo "<h1>Selamat datang, <span class='warning'>" . $_SESSION['user']['username'] . "</span></h1>" ?>
         <h2 class="mb-4 mt-2">Data Registrasi Informasi Peserta Didik Baru</h3>
             <form>
-                <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+                <?php
+                // add error handling for mysql
+if (!$result = mysqli_query($koneksi, $query)) {
+    die("Query gagal dijalankan: " . mysqli_error($koneksi));
+}
+                while ($row = mysqli_fetch_assoc($result)) : ?>
                     <div class="row">
                         <div class="mb-3 row">
                             <label for="id_registrasi" class="form-label">ID Registrasi</label>
@@ -230,7 +234,7 @@ if (isset($_POST['back'])) {
                     </div>
                 <?php endwhile; ?>
                 <!-- button untuk kembali -->
-                <button type="submit" class="btn btn-primary float-end mx-1" id="back" name="back">Back</button>
+                <button type="submit" id="back" name="back"><a href="auth/logout.php" class="btn btn-primary float-end mx-1">Logout</a></button>
             </form>
     </div>
 </body>
