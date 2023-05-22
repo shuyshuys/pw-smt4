@@ -11,12 +11,12 @@ if (!is_authenticated()) {
     exit();
 }
 
-// echo "<pre>";
-// print_r($_SESSION['registrasi']);
-// print_r($_SESSION['data-pribadi']);
-// print_r($_SESSION['data-ayah']);
-// print_r($_SESSION['data-ibu']);
-// echo "</pre>";
+echo "<pre>";
+print_r($_SESSION['registrasi']);
+print_r($_SESSION['data-pribadi']);
+print_r($_SESSION['data-ayah']);
+print_r($_SESSION['data-ibu']);
+echo "</pre>";
 
 if (isset($_POST['submit'])) {
     // ambil nilai form
@@ -94,11 +94,12 @@ if (isset($_POST['submit'])) {
     // ambil id alamat
     $id_alamat_pr = mysqli_insert_id($koneksi);
 
-    $unique_id_siswa = substr(uniqid(), 0, 10);
+    // $unique_id_siswa = substr(uniqid(), 0, 10);
     // masukkan id_siswa, nama_lengkap, jenis_kelamin, nisn, nik, tanggal_lahir, agama, berkebutuhan_khusus, alamat, tempat_tinggal, moda_transportasi, nomor_hp, nomor_telepon, email, penerima_kps, nomor_kps, kewarganegaraan kedalam tabel siswa
-    $query = "INSERT INTO siswa (id_siswa, nama_lengkap, kode_jenis_kelamin, nisn, nik, tgl_lahir, id_agama, id_kebutuhan_khusus, id_alamat, id_tempat_tinggal, id_moda_transportasi, no_hp, nomor_telepon, email, kode_kps_kks_pkh_kip, no_kps_kks_pkh_kip, kode_kewarganegaraan)
-    VALUES ('$unique_id_siswa', '$nama_lengkap', '$jenis_kelamin', '$nisn', '$nik', '$tanggal_lahir', '$agama', '$berkebutuhan_khusus', '$id_alamat_pr', '$tempat_tinggal', '$moda_transportasi', '$nomor_hp', '$nomor_telepon', '$email', '$penerima_kps', '$nomor_kps', '$kewarganegaraan')";
+    $query = "INSERT INTO siswa (nama_lengkap, kode_jenis_kelamin, nisn, nik, tgl_lahir, id_agama, id_kebutuhan_khusus, id_alamat, id_tempat_tinggal, id_moda_transportasi, no_hp, nomor_telepon, email, kode_kps_kks_pkh_kip, no_kps_kks_pkh_kip, kode_kewarganegaraan)
+    VALUES ('$nama_lengkap', '$jenis_kelamin', '$nisn', '$nik', '$tanggal_lahir', '$agama', '$berkebutuhan_khusus', '$id_alamat_pr', '$tempat_tinggal', '$moda_transportasi', '$nomor_hp', '$nomor_telepon', '$email', '$penerima_kps', '$nomor_kps', '$kewarganegaraan')";
     $result = mysqli_query($koneksi, $query);
+    $id_siswa_pr = mysqli_insert_id($koneksi);
 
     $unique_ortu_ayah = substr(uniqid(), 0, 10);
     // masukkan id_siswa, nama_ayah, ayah_tahun_lahir, ayah_pendidikan_ortu, ayah_pekerjaan_ortu, ayah_penghasilan_ortu, ayah_berkebutuhan_khusus kedalam tabel ayah
@@ -112,17 +113,21 @@ if (isset($_POST['submit'])) {
     VALUES ('$unique_ortu_ibu', '$unique_id_siswa', '$nama_ibu', '$tahun_lahir_ibu', '$pendidikan_ibu', '$pekerjaan_ibu', '$penghasilan_ibu', '$ibu_berkebutuhan_khusus')";
     $result = mysqli_query($koneksi, $query);
 
-    $unique_id = substr(uniqid(), 0, 10);
-    $_SESSION['unique_id'] = $unique_id;
+    // $unique_id = substr(uniqid(), 0, 10);
     // masukkan kedalam tabel registrasi
-    $query = "INSERT INTO registrasi (id_registrasi, id_siswa, id_pendaftaran, tgl_masuk_sekolah, nis, no_peserta_ujian, kode_paud, kode_tk, no_skhun, no_ijazah, id_hobi, id_cita) 
-VALUES ('$unique_id', '$unique_id_siswa', '$id_pendaftaran', '$tanggal_masuk_sekolah ', '$nomor_induk_sekolah', '$nomor_peserta_ujian', '$apakah_pernah_paud', '$apakah_pernah_tk', '$nomor_seri_skhun_sebelumnya', '$nomor_seri_ijazah_sebelumnya', '$hobi', '$cita')";
+    $query = "INSERT INTO registrasi (id_siswa, id_pendaftaran, tgl_masuk_sekolah, nis, no_peserta_ujian, kode_paud, kode_tk, no_skhun, no_ijazah, id_hobi, id_cita) 
+VALUES ('$unique_id_siswa', '$id_pendaftaran', '$tanggal_masuk_sekolah ', '$nomor_induk_sekolah', '$nomor_peserta_ujian', '$apakah_pernah_paud', '$apakah_pernah_tk', '$nomor_seri_skhun_sebelumnya', '$nomor_seri_ijazah_sebelumnya', '$hobi', '$cita')";
     $result = mysqli_query($koneksi, $query);
+
+    // ambil id registrasi dan masukkan ke sesi untuk dipakai di lain waktu
+    $id_registrasi_pr = mysqli_insert_id($koneksi);
+    $_SESSION['unique_id'] = $id_registrasi_pr;
+
     if (!$result) {
         die("Query gagal dijalankan: " . mysqli_error($koneksi));
     } else {
         // ambil id registrasi
-        $id_registrasi = mysqli_insert_id($koneksi);
+        // $id_registrasi = mysqli_insert_id($koneksi);
     }
 
     // alert sukses
@@ -181,6 +186,11 @@ if (isset($_POST['isian'])) {
 if (isset($_POST['back'])) {
     header('Location: data-ibu.php');
 }
+
+// Kembali ke login
+if (isset($_POST['logout'])) {
+    header('Location: auth/logout.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -198,10 +208,10 @@ if (isset($_POST['back'])) {
     <div class="container">
         <?php if (!empty($errors)) :
             foreach ($errors as $error) : ?>
-        <div class="alert alert-danger  alert-dismissible fade show mt-2">
-            <?php echo $error; ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+                <div class="alert alert-danger  alert-dismissible fade show mt-2">
+                    <?php echo $error; ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
         <?php endforeach;
         endif; ?>
         <div class="mt-3">
@@ -214,6 +224,8 @@ if (isset($_POST['back'])) {
                     isian</button>
                 <!-- button untuk kembali -->
                 <button type="submit" class="btn btn-primary mr-2" id="back" name="back">Back</button>
+                <!-- button untuk logout -->
+                <button type="submit" class="btn btn-danger" id="logout" name="logout">Logout</button>
             </form>
         </div>
     </div>
